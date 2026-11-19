@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AegisMap - Peta Tanggap Darurat</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="map"></div>
+
+<aside id="side" class="ui glass">
+  <div class="brand"><div class="logo">🛡</div><div><b>AegisMap</b><small>PETA TANGGAP DARURAT</small></div></div>
+  <div class="stat"><div><b id="nb">0</b><small>Bahaya aktif</small></div><div><b id="nf">0</b><small>Fasilitas dipantau</small></div></div>
+  <div class="tile"><h4>TERDEKAT DARI ANDA</h4><div id="near"></div><small id="origin" style="color:var(--mut);font-size:10.5px"></small></div>
+  <div class="tile" style="font-size:12px;color:var(--mut)"><h4>AREA DIPANTAU</h4><b style="color:var(--tx);font-size:15px">Malang, Jawa Timur</b><br><span id="upd">Memuat…</span></div>
+  <div style="flex:1"></div>
+  <button class="btn soft" onclick="myReports()">🚨 Laporan saya</button>
+  <div class="sos"><div><small style="opacity:.7">Darurat nasional</small><h2>112</h2></div><a href="tel:112">📞</a></div>
+</aside>
+
+<div id="top" class="ui">
+  <input id="q" placeholder="🔍  Cari alamat atau lokasi… (Enter)">
+  <button class="glass sq" id="bell" title="Notifikasi">🔔<span id="cnt"></span></button>
+  <button class="glass sq" id="theme" title="Mode gelap/terang">🌙</button>
+</div>
+<div id="chips" class="ui"></div>
+<div class="ui ctl">
+  <button class="glass sq" onclick="map.zoomIn()">＋</button>
+  <button class="glass sq" onclick="map.zoomOut()">－</button>
+  <button class="glass sq" onclick="locate()" title="Lokasi saya">◎</button>
+</div>
+<div id="drawer" class="ui glass"></div>
+<div id="bot" class="ui glass">
+  <div><b>Butuh bantuan darurat?</b><br><small style="color:var(--mut)">Telepon 112 atau laporkan bahaya di sekitar Anda.</small></div>
+  <div style="display:flex;gap:8px"><a class="btn soft" href="tel:112">📞 112</a><button class="btn red" onclick="openReport()">⚠ BUAT LAPORAN</button></div>
+</div>
+
+<dialog id="dlg">
+  <h3>Buat laporan bahaya</h3>
+  <label>Jenis bahaya</label><select id="rt"></select>
+  <label>Keterangan</label><textarea id="rd" rows="3" maxlength="200" placeholder="Contoh: asap tebal dari ruko, jalan tertutup"></textarea>
+  <label>Lokasi</label><div id="rl" style="font-size:13px;color:var(--mut)"></div>
+  <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><button class="btn soft" onclick="useGps()">Pakai GPS</button><small style="color:var(--mut)">atau klik peta</small></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:18px"><button class="btn soft" onclick="dlg.close()">Batal</button><button class="btn red" onclick="submitReport()">Kirim</button></div>
+</dialog>
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
